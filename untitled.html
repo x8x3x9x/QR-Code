@@ -24,7 +24,7 @@
   #cardNumber, #name {
     color: white; /* تغییر رنگ متن به سفید */
     line-height: 0.5;
-    font-size: 19px;
+    font-size: 21px;
     text-shadow: 0 0 5px rgb(17, 153, 141); /* اضافه کردن افکت Glow */
   }
   #cardNumber {
@@ -54,16 +54,21 @@
   <p id="cardNumber">6280 2314 9944 0914</p>
   <p id="name">حمیدرضا طایفی</p>
   <button class="copy-button" onclick="copyToClipboard()">کپی شماره کارت</button>
+  <!-- تگ مخفی textarea که متن را در آن کپی می‌کنیم -->
+  <textarea id="hiddenTextArea" style="height: 0; width: 0; opacity: 0;"></textarea>
 </div>
 
 <script>
 function copyToClipboard() {
   var cardNumber = document.getElementById("cardNumber").innerText;
-  navigator.clipboard.writeText(cardNumber).then(function() {
-    alert("copied to clipboard: " + cardNumber);
-  }, function(err) {
-    console.error('Could not copy text: ', err);
-  });
+  // کپی کردن متن به تگ مخفی textarea
+  var hiddenTextArea = document.getElementById("hiddenTextArea");
+  hiddenTextArea.value = cardNumber;
+  hiddenTextArea.select();
+  document.execCommand("copy");
+  // پاک کردن متن از تگ مخفی textarea
+  hiddenTextArea.value = "";
+  alert("copied to clipboard: " + cardNumber);
 }
 </script>
 </body>
