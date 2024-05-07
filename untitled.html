@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Card Number</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #88d8b0, #76c893);
+    color: #333;
+  }
+  #container {
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #cardNumber, #name {
+    color: white; /* تغییر رنگ متن به سفید */
+    line-height: 0.5;
+    font-size: 21px;
+    text-shadow: 0 0 5px rgb(17, 153, 141); /* اضافه کردن افکت Glow */
+  }
+  #cardNumber {
+    margin-bottom: 10px;
+  }
+  .copy-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #11998e, #38ef7d);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+  }
+  .copy-button:hover {
+    background: linear-gradient(to right, #38ef7d, #11998e);
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <p id="cardNumber">6280 2314 9944 0914</p>
+  <p id="name">حمیدرضا طایفی</p>
+  <button class="copy-button" onclick="copyToClipboard()">کپی شماره کارت</button>
+</div>
+
+<script>
+function copyToClipboard() {
+  var cardNumber = document.getElementById("cardNumber");
+  var range = document.createRange();
+  range.selectNode(cardNumber);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  
+  document.execCommand("copy");
+  
+  window.getSelection().removeAllRanges();
+  
+  alert("copied to clipboard: " + cardNumber.innerText);
+}
+</script>
+</body>
+</html>
