@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Card Number</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #7b4397, #dc2430); /* بهبود رنگ‌بندی پس‌زمینه */
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+  .card-info {
+    margin-bottom: 30px;
+  }
+  .cardNumber, .name {
+    font-weight: 600;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .copy-button {
+    margin-top: 1px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(to right, #642b73, #c6426e); /* تغییر رنگ دکمه‌ها */
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+  }
+  .copy-button:hover {
+    background: linear-gradient(to right, #c6426e, #642b73); /* تغییر رنگ در حالت هاور */
+    transform: scale(1.05); /* افکت بزرگنمایی در هاور */
+  }
+  @keyframes glow {
+    0% {
+      text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+    }
+    50% {
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    }
+    100% {
+      text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+    }
+  }
+  .glowing {
+    animation: glow 1.5s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div class="card-info">
+    <p class="cardNumber">6219 8619 8959 6761</p>
+    <p class="name">حمیدرضا طایفی نصرآبادی</p>
+    <button class="copy-button" onclick="copyToClipboard('cardNumber')">کپی شماره کارت</button>
+  </div>
+  <div class="card-info">
+    <p class="cardNumber">IR86-0560-6118-2800-5761-7355-01</p>
+    <p class="name">حمیدرضا طایفی نصرآبادی</p>
+    <button class="copy-button" onclick="copyToClipboard('cardNumber2')">کپی شماره شبا</button>
+  </div>
+  <!-- تگ مخفی textarea که متن را در آن کپی می‌کنیم -->
+  <textarea id="hiddenTextArea" style="height: 0; width: 0; opacity: 0;"></textarea>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function copyToClipboard(elementId) {
+  var cardNumber = document.getElementById(elementId).innerText;
+  var hiddenTextArea = document.getElementById("hiddenTextArea");
+  hiddenTextArea.value = cardNumber;
+  hiddenTextArea.select();
+  document.execCommand("copy");
+  hiddenTextArea.value = "";
+  alert("copied to clipboard: " + cardNumber);
+}
+
+$(document).ready(function() {
+  $(".cardNumber, .name").addClass("glowing");
+});
+</script>
+</body>
+</html>
