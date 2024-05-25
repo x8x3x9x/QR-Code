@@ -9,28 +9,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    background: linear-gradient(to right, #7b4397, #dc2430); /* بهبود رنگ‌بندی پس‌زمینه */
+    background: linear-gradient(to right, #7b4397, #dc2430);
     color: #fff;
     font-family: 'Arial', sans-serif;
   }
+  #container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 5px solid transparent;
+    transition: border-color 0.3s;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0%, 100% {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      border-color: transparent;
+    }
+  }
   .card-info {
     margin-bottom: 30px;
+    position: relative;
   }
-  .cardNumber, .name {
+  .cardNumber, .cardshaba, .name {
+    color: #fff;
     font-weight: 600;
     font-size: 18px;
+    line-height: 1.5;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    animation: glow 1.5s ease-in-out infinite alternate;
   }
   .copy-button {
-    margin-top: 1px;
+    margin-top: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
-    background: linear-gradient(to right, #642b73, #c6426e); /* تغییر رنگ دکمه‌ها */
+    background: linear-gradient(to right, #642b73, #c6426e);
     color: white;
     font-size: 19px;
     cursor: pointer;
@@ -40,8 +63,8 @@
     font-family: 'Roboto', sans-serif;
   }
   .copy-button:hover {
-    background: linear-gradient(to right, #c6426e, #642b73); /* تغییر رنگ در حالت هاور */
-    transform: scale(1.05); /* افکت بزرگنمایی در هاور */
+    background: linear-gradient(to right, #c6426e, #642b73);
+    transform: scale(1.05);
   }
   @keyframes glow {
     0% {
@@ -54,9 +77,6 @@
       text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
     }
   }
-  .glowing {
-    animation: glow 1.5s ease-in-out infinite;
-  }
 </style>
 </head>
 <body>
@@ -64,32 +84,38 @@
   <div class="card-info">
     <p class="cardNumber">6219 8619 8959 6761</p>
     <p class="name">حمیدرضا طایفی نصرآبادی</p>
-    <button class="copy-button" onclick="copyToClipboard('cardNumber')">کپی شماره کارت</button>
+    <button class="copy-button" onclick="copyToClipboard('6219 8619 8959 6761', this)"><span>کپی شماره کارت</span></button>
   </div>
   <div class="card-info">
-    <p class="cardNumber">IR86-0560-6118-2800-5761-7355-01</p>
+    <p class="cardshaba">IR86-0560-6118-2800-5761-7355-01</p>
     <p class="name">حمیدرضا طایفی نصرآبادی</p>
-    <button class="copy-button" onclick="copyToClipboard('cardNumber2')">کپی شماره شبا</button>
+    <button class="copy-button" onclick="copyToClipboard('IR86-0560-6118-2800-5761-7355-01', this)"><span>کپی شماره شبا</span></button>
   </div>
   <!-- تگ مخفی textarea که متن را در آن کپی می‌کنیم -->
   <textarea id="hiddenTextArea" style="height: 0; width: 0; opacity: 0;"></textarea>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-function copyToClipboard(elementId) {
-  var cardNumber = document.getElementById(elementId).innerText;
-  var hiddenTextArea = document.getElementById("hiddenTextArea");
-  hiddenTextArea.value = cardNumber;
-  hiddenTextArea.select();
-  document.execCommand("copy");
-  hiddenTextArea.value = "";
-  alert("copied to clipboard: " + cardNumber);
+function copyToClipboard(text, button) {
+  button.querySelector('span').textContent = "کپی شد"; // تغییر متن دکمه به "کپی شد"
+  navigator.clipboard.writeText(text).then(function() {
+    setTimeout(function() {
+      button.querySelector('span').textContent = (text === '6219 8619 8959 6761') ? "کپی شماره کارت" : "کپی شماره شبا"; // بازگشت به متن اصلی دکمه
+    }, 2000); // 2000 میلی‌ثانیه بعد از کپی شدن
+  }).catch(function() {
+    button.querySelector('span').textContent = "کپی نشد"; // تغییر متن دکمه به "کپی نشد"
+  });
 }
 
-$(document).ready(function() {
-  $(".cardNumber, .name").addClass("glowing");
+document.querySelectorAll(".card-info").forEach(function(card) {
+  card.classList.add("glowing");
 });
+
+setInterval(function() {
+  document.querySelectorAll(".card-info .cardNumber, .card-info .cardshaba, .card-info .name").forEach(function(element) {
+    element.classList.toggle("glowing");
+  });
+}, 1500); // 1500 milliseconds = 1.5 seconds
 </script>
 </body>
-</html>
+  </html>
