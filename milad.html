@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milad Zeidiyan</title>
+    <!-- لینک به فونت فارسی وزیر -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css">
+    <style>
+        body {
+            font-family: 'Vazir', sans-serif;
+            background-color: #e0e0e0; /* بکگراند خاکستری */
+            color: #333;
+            direction: rtl;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .info h2, .social-links h2, .contact h2, .bank-info h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .info p, .contact p, .bank-info p {
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.6;
+        }
+        .bank-info p {
+            font-size: 1.5em; /* بزرگ‌تر کردن شماره کارت و شماره شبا */
+            font-weight: bold; /* کلفت کردن شماره کارت و شماره شبا */
+            margin-bottom: 10px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 10px 15px;
+            text-decoration: none;
+            color: #000;
+            font-size: 1.3em;
+            transition: color 0.3s;
+        }
+        .social-links a img {
+            width: 25px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+        .social-links a:hover {
+            color: #555;
+        }
+        .copy-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em; /* بزرگ‌تر کردن متن دکمه‌ها */
+            margin: 10px 0;
+            transition: background-color 0.3s, transform 0.3s;
+            text-transform: uppercase;
+            width: 100%;
+            font-weight: bold; /* کلفت کردن متن دکمه‌ها */
+        }
+        .copy-btn:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Milad Zeidiyan</h1>
+        <div class="info">
+            <h2>معرفی</h2>
+            <p>من میلاد زیدیان هستم و اینجا می‌توانید توضیحات کوتاهی درباره خودتان یا کسب‌و‌کارتان بنویسید.</p>
+        </div>
+        <div class="social-links">
+            <h2>شبکه‌های اجتماعی</h2>
+            <p>
+                <a href="https://t.me/yourtelegram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo"> تلگرام
+                </a>
+                <a href="https://instagram.com/yourinstagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo"> اینستاگرام
+                </a>
+            </p>
+        </div>
+        <div class="contact">
+            <h2>تماس با ما</h2>
+            <p>شماره تلفن: 1234567890</p>
+            <p>آدرس: تهران، خیابان انقلاب، کوچه اول، پلاک ۲۳</p>
+        </div>
+        <div class="bank-info">
+            <h2>اطلاعات بانکی</h2>
+            <p><span id="card-number">6037997504710386</span></p>
+            <div class="button-container">
+                <button class="copy-btn" onclick="copyToClipboard('card-number')">کپی شماره کارت</button>
+                <p><span id="iban-number">IR320170000000112382558001</span></p>
+                <button class="copy-btn" onclick="copyToClipboard('iban-number')">کپی شماره شبا</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            var textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                var button = document.querySelector(`button[onclick="copyToClipboard('${elementId}')"]`);
+                var originalText = button.innerText;
+                button.innerText = 'کپی شد';
+                setTimeout(function() {
+                    button.innerText = originalText;
+                }, 2000);
+            }, function() {
+                alert('خطا در کپی کردن!');
+            });
+        }
+    </script>
+</body>
+</html>
